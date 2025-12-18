@@ -1,7 +1,8 @@
 import pygame
+import sys
 #from constants import *
 from constants import *
-from logger import log_state
+from logger import log_state, log_event
 from player import *
 from asteroid import *
 from asteroidfield import *
@@ -48,6 +49,12 @@ def main():
             
         #player.update(dt) -- Changed to using Groups
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
         screen.fill("black")
 
